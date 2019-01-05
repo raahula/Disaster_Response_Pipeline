@@ -2,7 +2,7 @@
 ## Table of Contents
 * [Installation](#Installation)
 * [Instructions](#Instructions)
-* [File descriptions](#File descriptions)
+* [File descriptions](#File-descriptions)
 * [Results](#Results)
 * [Author](#Author)
 * [Acknowledgement](#Acknowledgement)
