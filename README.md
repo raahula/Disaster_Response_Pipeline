@@ -50,4 +50,4 @@ The model performs reasonably well to predict the message category based on the 
 https://github.com/raahula
 
 ## Acknowledgement: 
-Thanks to [Udacity](https://www.udacity.com/) and [Figure 8](https://www.figure-eight.com/) for providing the oppurtuniy to work on this great project.
+Thanks to [Udacity](https://www.udacity.com/) and [Figure 8](https://www.figure-eight.com/) for providing me the oppurtunity to work on this great project.
