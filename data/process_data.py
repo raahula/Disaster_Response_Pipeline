@@ -6,6 +6,9 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+	"""
+	Picks up the data from messages and categories csv files and merges them into a dataframe
+	"""
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     df = messages.merge(categories, how='inner', on='id')
@@ -13,6 +16,9 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+	"""
+	Cleans the merged df so that ML algorithm can be implemented on the data.
+	"""
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(';',expand=True)
 
@@ -45,12 +51,18 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filename):
+	"""
+	Saves the cleaned dataframe to a sql database
+	"""
     link='sqlite:///'+database_filename
     engine = create_engine(link)
     df.to_sql('msg_ctg', engine, index=False, if_exists='replace')
 
 
 def main():
+	"""
+	Calls the various functions to load, clean and save data respectively
+	"""
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
