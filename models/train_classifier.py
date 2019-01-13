@@ -21,6 +21,9 @@ import pickle
 import re
 
 def load_data(database_filepath):
+	"""
+	Loads data from the defined database_filepath
+	"""
     # load data from database
     link='sqlite:///'+database_filepath
     engine = create_engine(link)
@@ -32,15 +35,22 @@ def load_data(database_filepath):
     return X, Y, category_names
 
 def tokenize(text):
+	"""
+	This function converts the text to lower text and removes puctuation and then subsequently tokenizes and lemmatizes them.
+	"""
     lemmatizer = WordNetLemmatizer()
     # normalize case and remove punctuation
     text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
     tokens=word_tokenize(text)    
-    # lemmatize andremove stop words
+    # lemmatize 
     tokens = [lemmatizer.lemmatize(word) for word in tokens]    
     return tokens
 
 def build_model():
+	"""
+	It builds a pipeline to implement vectorization, tfidf transformation and classification.
+	It subsequently implements a grid search on this pipeline and returns the model.
+	"""
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -56,6 +66,9 @@ def build_model():
     return cv
 
 def evaluate_model(model, X_test, Y_test, category_names):
+	"""
+	This fn. predicts on the test data and prints the calculated score
+	"""
     Y_pred = model.predict(X_test)
     labels = np.unique(Y_pred)
     i=-1
@@ -64,9 +77,15 @@ def evaluate_model(model, X_test, Y_test, category_names):
         print ('The scores for {} are \n {}'.format((column),(classification_report(Y_test[:,i], Y_pred[:,i], labels= labels))))
         
 def save_model(model, model_filepath):
+	"""
+	This fn. saves the trained model to the specified filepath
+	"""
     pickle.dump(model, open(model_filepath, 'wb'))
 
 def main():
+	"""
+	Runs all the functions in sequence to load the data and then build, train, test and save the model using the loaded data.
+	"""
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
