@@ -37,12 +37,13 @@ def load_data(database_filepath):
 def tokenize(text):
 	"""
 	This function converts the text to lower text and removes puctuation and then subsequently tokenizes and lemmatizes them.
-	"""
-    lemmatizer = WordNetLemmatizer()
+	"""    
     # normalize case and remove punctuation
     text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
-    tokens=word_tokenize(text)    
-    # lemmatize 
+    #split the sentence into tokens
+    tokens=word_tokenize(text)
+    # lemmatize
+    lemmatizer = WordNetLemmatizer() 
     tokens = [lemmatizer.lemmatize(word) for word in tokens]    
     return tokens
 
